@@ -1,119 +1,186 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  Image,
-  ScrollView,
-  TouchableOpacity
-} from 'react-native';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brick Store</title>
 
-const bricks = [
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #f1f3f6;
+}
+
+/* HEADER */
+.header {
+  background: #2874f0;
+  color: white;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.search {
+  width: 50%;
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
+}
+
+/* PRODUCT GRID */
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+  padding: 15px;
+}
+
+.card {
+  background: white;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.03);
+}
+
+.card img {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.name {
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.price {
+  color: green;
+  margin: 5px 0;
+}
+
+button {
+  background: #ff9f00;
+  border: none;
+  padding: 8px;
+  width: 100%;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #fb641b;
+}
+
+/* CART */
+.cart {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: white;
+  padding: 10px;
+  border-top: 2px solid #ccc;
+}
+
+.cart h3 {
+  margin: 0;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo">🧱 BrickKart</div>
+  <input type="text" class="search" placeholder="Search bricks..." onkeyup="searchProduct(this.value)">
+</div>
+
+<!-- PRODUCTS -->
+<div class="container" id="productList"></div>
+
+<!-- CART -->
+<div class="cart">
+  <h3>🛒 Cart: <span id="cartCount">0</span> items</h3>
+</div>
+
+<script>
+
+const products = [
   {
-    id: 1,
     name: "Red Clay Brick",
-    price: "₹8 / piece",
-    image: "https://via.placeholder.com/150"
+    price: 8,
+    image: "https://via.placeholder.com/200"
   },
   {
-    id: 2,
     name: "Fly Ash Brick",
-    price: "₹6 / piece",
-    image: "https://via.placeholder.com/150"
+    price: 6,
+    image: "https://via.placeholder.com/200"
   },
   {
-    id: 3,
     name: "Concrete Brick",
-    price: "₹10 / piece",
-    image: "https://via.placeholder.com/150"
+    price: 10,
+    image: "https://via.placeholder.com/200"
+  },
+  {
+    name: "Hollow Brick",
+    price: 12,
+    image: "https://via.placeholder.com/200"
+  },
+  {
+    name: "Engineering Brick",
+    price: 15,
+    image: "https://via.placeholder.com/200"
   }
 ];
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      
-      {/* Header */}
-      <Text style={styles.header}>Brick Store 🧱</Text>
+let cart = [];
 
-      {/* Search Bar */}
-      <TextInput
-        style={styles.search}
-        placeholder="Search bricks..."
-      />
+function displayProducts(list) {
+  const productList = document.getElementById("productList");
+  productList.innerHTML = "";
 
-      {/* Product List */}
-      <ScrollView>
-        {bricks.map((item) => (
-          <View key={item.id} style={styles.card}>
-            <Image source={{ uri: item.image }} style={styles.image} />
-            
-            <View style={styles.info}>
-              <Text style={styles.name}>{item.name}</Text>
-              <Text style={styles.price}>{item.price}</Text>
-
-              <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}>Order Now</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        ))}
-      </ScrollView>
-
-    </View>
-  );
+  list.forEach((item, index) => {
+    productList.innerHTML += `
+      <div class="card">
+        <img src="${item.image}">
+        <div class="name">${item.name}</div>
+        <div class="price">₹${item.price}/piece</div>
+        <button onclick="addToCart(${index})">Add to Cart</button>
+      </div>
+    `;
+  });
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 15,
-    backgroundColor: '#f5f5f5'
-  },
-  header: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 10
-  },
-  search: {
-    backgroundColor: '#fff',
-    padding: 10,
-    borderRadius: 8,
-    marginBottom: 10
-  },
-  card: {
-    flexDirection: 'row',
-    backgroundColor: '#fff',
-    marginBottom: 10,
-    borderRadius: 10,
-    padding: 10,
-    elevation: 3
-  },
-  image: {
-    width: 100,
-    height: 100,
-    borderRadius: 10
-  },
-  info: {
-    marginLeft: 10,
-    justifyContent: 'space-between'
-  },
-  name: {
-    fontSize: 18,
-    fontWeight: 'bold'
-  },
-  price: {
-    color: 'green',
-    marginVertical: 5
-  },
-  button: {
-    backgroundColor: '#ff6600',
-    padding: 8,
-    borderRadius: 5
-  },
-  buttonText: {
-    color: '#fff',
-    textAlign: 'center'
-  }
-});
+function addToCart(index) {
+  cart.push(products[index]);
+  document.getElementById("cartCount").innerText = cart.length;
+  alert("Added to cart!");
+}
+
+function searchProduct(text) {
+  const filtered = products.filter(p =>
+    p.name.toLowerCase().includes(text.toLowerCase())
+  );
+  displayProducts(filtered);
+}
+
+// INIT
+displayProducts(products);
+
+</script>
+
+</body>
+</html>
