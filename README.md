@@ -1,2 +1,1 @@
-# Brick-app
-brick sales app 👉 brick manufacturing and order app  simple bricks selling app
+https://github.com/sandeeppadanur-web/Brick-app/blob/main/README.md,
