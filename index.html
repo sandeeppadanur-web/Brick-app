@@ -21,6 +21,12 @@
       box-shadow: 0 0 10px gray;
     }
 
+    input {
+      padding: 8px;
+      margin: 5px;
+      width: 80%;
+    }
+
     button {
       background: green;
       color: white;
@@ -36,16 +42,28 @@
 <h1>🧱 BrickMart</h1>
 
 <div class="card">
-  <h2>Red Bricks</h2>
-  <p>Price: ₹5000</p>
-  <button onclick="alert('Order placed!')">Order Now</button>
+  <h2>Order Bricks</h2>
+
+  <input type="text" id="name" placeholder="Enter your name"><br>
+  <input type="number" id="phone" placeholder="Enter phone number"><br>
+  <input type="number" id="qty" placeholder="Enter quantity"><br><br>
+
+  <button onclick="placeOrder()">Place Order</button>
 </div>
 
-<div class="card">
-  <h2>Fly Ash Bricks</h2>
-  <p>Price: ₹4500</p>
-  <button onclick="alert('Order placed!')">Order Now</button>
-</div>
+<script>
+function placeOrder() {
+  let name = document.getElementById("name").value;
+  let phone = document.getElementById("phone").value;
+  let qty = document.getElementById("qty").value;
+
+  if(name === "" || phone === "" || qty === "") {
+    alert("Please fill all details!");
+  } else {
+    alert("Order placed successfully!\nName: " + name + "\nQty: " + qty);
+  }
+}
+</script>
 
 </body>
-</html>
+</html>>
