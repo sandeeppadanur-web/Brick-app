@@ -2,68 +2,92 @@
 <html>
 <head>
   <title>BrickMart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
   <style>
     body {
+      margin: 0;
       font-family: Arial;
-      background: #f5f5f5;
+      background: #f1f3f6;
+    }
+
+    /* Header */
+    .header {
+      background: #2874f0;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    /* Product Grid */
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      padding: 10px;
+    }
+
+    /* Card */
+    .card {
+      background: white;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 0 5px gray;
       text-align: center;
     }
 
-    h1 {
-      color: #b22222;
+    .card img {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
     }
 
-    .card {
-      background: white;
-      margin: 20px;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px gray;
-    }
-
-    input {
-      padding: 8px;
-      margin: 5px;
-      width: 80%;
+    .price {
+      color: green;
+      font-weight: bold;
     }
 
     button {
-      background: green;
+      background: #fb641b;
       color: white;
-      padding: 10px;
       border: none;
+      padding: 8px;
+      width: 100%;
       border-radius: 5px;
+      margin-top: 5px;
     }
   </style>
 </head>
 
 <body>
 
-<h1>🧱 BrickMart</h1>
+<div class="header">🧱 BrickMart</div>
 
-<div class="card">
-  <h2>Order Bricks</h2>
+<div class="container">
 
-  <input type="text" id="name" placeholder="Enter your name"><br>
-  <input type="number" id="phone" placeholder="Enter phone number"><br>
-  <input type="number" id="qty" placeholder="Enter quantity"><br><br>
+  <div class="card">
+    <img src="https://via.placeholder.com/150">
+    <h3>Red Bricks</h3>
+    <p class="price">₹5000</p>
+    <button onclick="order()">Order Now</button>
+  </div>
 
-  <button onclick="placeOrder()">Place Order</button>
+  <div class="card">
+    <img src="https://via.placeholder.com/150">
+    <h3>Fly Ash Bricks</h3>
+    <p class="price">₹4500</p>
+    <button onclick="order()">Order Now</button>
+  </div>
+
 </div>
 
 <script>
-function placeOrder() {
-  let name = document.getElementById("name").value;
-  let phone = document.getElementById("phone").value;
-  let qty = document.getElementById("qty").value;
-
-  if(name === "" || phone === "" || qty === "") {
-    alert("Please fill all details!");
-  } else {
-    alert("Order placed successfully!\nName: " + name + "\nQty: " + qty);
-  }
+function order() {
+  alert("Order placed successfully!");
 }
 </script>
 
 </body>
-</html>>
+</html>
