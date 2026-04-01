@@ -1,93 +1,119 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>BrickMart</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial;
-      background: #f1f3f6;
-    }
+import React from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  Image,
+  ScrollView,
+  TouchableOpacity
+} from 'react-native';
 
-    /* Header */
-    .header {
-      background: #2874f0;
-      color: white;
-      padding: 15px;
-      text-align: center;
-      font-size: 20px;
-      font-weight: bold;
-    }
+const bricks = [
+  {
+    id: 1,
+    name: "Red Clay Brick",
+    price: "₹8 / piece",
+    image: "https://via.placeholder.com/150"
+  },
+  {
+    id: 2,
+    name: "Fly Ash Brick",
+    price: "₹6 / piece",
+    image: "https://via.placeholder.com/150"
+  },
+  {
+    id: 3,
+    name: "Concrete Brick",
+    price: "₹10 / piece",
+    image: "https://via.placeholder.com/150"
+  }
+];
 
-    /* Product Grid */
-    .container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      padding: 10px;
-    }
+export default function App() {
+  return (
+    <View style={styles.container}>
+      
+      {/* Header */}
+      <Text style={styles.header}>Brick Store 🧱</Text>
 
-    /* Card */
-    .card {
-      background: white;
-      padding: 10px;
-      border-radius: 8px;
-      box-shadow: 0 0 5px gray;
-      text-align: center;
-    }
+      {/* Search Bar */}
+      <TextInput
+        style={styles.search}
+        placeholder="Search bricks..."
+      />
 
-    .card img {
-      width: 100%;
-      height: 100px;
-      object-fit: cover;
-    }
+      {/* Product List */}
+      <ScrollView>
+        {bricks.map((item) => (
+          <View key={item.id} style={styles.card}>
+            <Image source={{ uri: item.image }} style={styles.image} />
+            
+            <View style={styles.info}>
+              <Text style={styles.name}>{item.name}</Text>
+              <Text style={styles.price}>{item.price}</Text>
 
-    .price {
-      color: green;
-      font-weight: bold;
-    }
+              <TouchableOpacity style={styles.button}>
+                <Text style={styles.buttonText}>Order Now</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        ))}
+      </ScrollView>
 
-    button {
-      background: #fb641b;
-      color: white;
-      border: none;
-      padding: 8px;
-      width: 100%;
-      border-radius: 5px;
-      margin-top: 5px;
-    }
-  </style>
-</head>
-
-<body>
-
-<div class="header">🧱 BrickMart</div>
-
-<div class="container">
-
-  <div class="card">
-    <img src="https://via.placeholder.com/150">
-    <h3>Red Bricks</h3>
-    <p class="price">₹5000</p>
-    <button onclick="order()">Order Now</button>
-  </div>
-
-  <div class="card">
-    <img src="https://via.placeholder.com/150">
-    <h3>Fly Ash Bricks</h3>
-    <p class="price">₹4500</p>
-    <button onclick="order()">Order Now</button>
-  </div>
-
-</div>
-
-<script>
-function order() {
-  alert("Order placed successfully!");
+    </View>
+  );
 }
-</script>
 
-</body>
-</html>
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 15,
+    backgroundColor: '#f5f5f5'
+  },
+  header: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 10
+  },
+  search: {
+    backgroundColor: '#fff',
+    padding: 10,
+    borderRadius: 8,
+    marginBottom: 10
+  },
+  card: {
+    flexDirection: 'row',
+    backgroundColor: '#fff',
+    marginBottom: 10,
+    borderRadius: 10,
+    padding: 10,
+    elevation: 3
+  },
+  image: {
+    width: 100,
+    height: 100,
+    borderRadius: 10
+  },
+  info: {
+    marginLeft: 10,
+    justifyContent: 'space-between'
+  },
+  name: {
+    fontSize: 18,
+    fontWeight: 'bold'
+  },
+  price: {
+    color: 'green',
+    marginVertical: 5
+  },
+  button: {
+    backgroundColor: '#ff6600',
+    padding: 8,
+    borderRadius: 5
+  },
+  buttonText: {
+    color: '#fff',
+    textAlign: 'center'
+  }
+});
